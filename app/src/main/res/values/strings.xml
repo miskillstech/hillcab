@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">HillCabs</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="double_tap_to_exit">Double Tap to Exit</string>
+    <string name="copy_right">Copyrights © %1$d</string>
+    <string name="hint_first_name">First name</string>
+    <string name="hint_last_name">Last name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_mobile">Mobile</string>
+    <string name="btn_sign_up">Sign Up</string>
+    <string name="err_msg_first_name">Enter your first name</string>
+    <string name="err_msg_last_name">Enter your last name</string>
+    <string name="err_msg_email">Enter valid email address</string>
+    <string name="err_msg_password">Enter the mobile number</string>
+
+        <string name="ok">OK</string>
+        <string name="cancel">Cancel</string>
+        <string name="info_title">Information</string>
+        <string name="info_description">coming soon</string>
+
+</resources>
