@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,8 +41,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputPhone;
     private EditText inputPassword;
     private ProgressDialog pDialog;
-    private SessionManager session;
-    private SQLiteHandler db;
+    //private SQLiteHandler db;
+    public static JSONObject userData;
+
 
     private boolean doubleBackToExitPressedOnce = false;
     private static int ACTIVE_TAB_POSITION = 1;
@@ -63,13 +65,13 @@ public class LoginActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
 
         // SQLite database handler
-        db = new SQLiteHandler(getApplicationContext());
+       // db = new SQLiteHandler(getApplicationContext());
 
         // Session manager
-        session = new SessionManager(getApplicationContext());
+        SessionManager.session = new SessionManager(getApplicationContext());
 
         // Check if user is already logged in or not
-        if (session.isLoggedIn()) {
+        if (SessionManager.session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
@@ -126,23 +128,23 @@ public class LoginActivity extends AppCompatActivity {
                 hideDialog();
 
                 try {
-                    JSONObject jObj = new JSONObject(response);
+                     JSONObject jObj = new JSONObject(response);
                     String status = jObj.getString("status");
                     if (status.equalsIgnoreCase("success")) {
 
-
-                        JSONObject data = new JSONObject(jObj.getString("data"));
+                       userData = new JSONObject(jObj.getString("data"));
                         // Now store the user in SQLite
-                        String firstName = data.getString("firstName");
+                        /*String firstName = data.getString("firstName");
                         String lastName = data.getString("lastName");
                         String email = data.getString("email");
-                        String phone = data.getString("phone");
-                        String uid = data.getString("uid");
+                        String phone = data.getString("phone");*/
+                        int uid = userData.getInt("uid");
                         //String created_at = data.getString("uid");
 
 
+
                         // Inserting row in users table
-                        db.addUser(firstName, lastName, email, phone, uid);
+                       // db.addUser(firstName, lastName, email, phone, uid);
 
 
                         Intent intent = new Intent(LoginActivity.this,
@@ -150,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
 
-                        session.setLogin(true);
+                        SessionManager.session.setLogin(true ,uid);
 
                     } else if (status.equalsIgnoreCase("fail")) {
                         String message = jObj.getString("message");

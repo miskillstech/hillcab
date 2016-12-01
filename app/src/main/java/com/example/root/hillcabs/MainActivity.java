@@ -28,12 +28,16 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static int ACTIVE_TAB_POSITION = 1;
 
     private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv10;
     private ImageView imMenu;
+    TextView TVuserData;
 
     Button rideLater;
     Button rideNow;
@@ -75,7 +79,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rideNow = (Button) findViewById(R.id.rideNow);
 
         llMenu = (LinearLayout) findViewById(R.id.llMenu);
+        String fistName = "";
+        try{
+            JSONObject jobj = new JSONObject(LoginActivity.userData.toString());
+            fistName = jobj.getString("firstName");
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
 
+        Toast.makeText(getApplicationContext(), "" + fistName, Toast.LENGTH_LONG).show();
+       // } catch(JSONException e){
+
+        //}
+        //TVuserData.setText(fistName);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.mDrawerLayout);
 
@@ -86,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         llAboutUsMenu = (LinearLayout) findViewById(R.id.llAboutUsMenu);
         llsettinggMenu = (LinearLayout) findViewById(R.id.llsettinggMenu);
         llaboutMenu = (LinearLayout) findViewById(R.id.llaboutMenu);
+        TVuserData = (TextView) findViewById(R.id.TVuserData);
 
         tv1 = (TextView) findViewById(R.id.tv1);
 
